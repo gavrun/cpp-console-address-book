@@ -4,6 +4,7 @@
 #include "Teacher.h"
 #include "Colleague.h"
 #include "AddressBook.h"
+#include "Interface.h"
 
 int main()
 {
@@ -17,13 +18,25 @@ int main()
 	t.printInfo();
 	c.printInfo();
 
-	std::cout << "Address Book - Domain storage + CRUD basic = OK\n" << std::endl;
+	std::cout << std::endl;
 
-	AddressBook book;
-	book.addPerson(std::make_unique<Student>("Ban", "Cock", "0666", "Anatomy"));
-	book.listPeople();
-	book.remove(0);
-	book.listPeople();
+	std::cout << "Address Book - Domain storage + CRUD basic = OK\n" << std::endl;
+	
+	AddressBook bookTmp;
+
+	bookTmp.addPerson(std::make_unique<Student>("Ban", "Cock", "0666", "Anatomy"));
+	bookTmp.listPeople();
+	bookTmp.remove(0);
+	bookTmp.listPeople();
+
+	std::cout << std::endl;
+
+	std::cout << "Address Book - Strategy search + Interface(UI) = OK\n" << std::endl;
+
+	AddressBook addrBook;
+	std::cout << "Welcome to Address Book application!\n"; // move to run()
+	Interface ui(addrBook);
+	ui.run();
 
 	return 0;
 }

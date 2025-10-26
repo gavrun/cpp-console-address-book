@@ -4,11 +4,15 @@
 #include <vector>
 #include <memory>
 
+#include "SearchStrategy.h"
+
 class Person;
 
 class AddressBook
 {
+private:
 	std::vector<std::unique_ptr<Person>> contacts;
+	std::unique_ptr<SearchStrategy> strategy;
 
 public:
 	AddressBook() = default;
@@ -28,5 +32,8 @@ public:
 	void listPeople() const;
 
 	const std::vector<std::unique_ptr<Person>>& getAll() const { return contacts; }
+
+	void setStrategy(std::unique_ptr<SearchStrategy> s);
+	std::vector<size_t> find(const std::string& q) const;
 };
 

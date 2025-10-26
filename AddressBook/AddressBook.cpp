@@ -1,7 +1,9 @@
 #include "AddressBook.h"
 #include "Person.h"
+#include "SearchStrategy.h"
 
 #include <iostream>
+#include <vector>
 
 void AddressBook::addPerson(std::unique_ptr<Person> person) {
 	contacts.push_back(std::move(person));
@@ -32,5 +34,19 @@ void AddressBook::listPeople() const {
 		std::cout << "#" << idx++ << ": ";
 		p->printInfo();
 	}
+}
+
+void AddressBook::setStrategy(std::unique_ptr<SearchStrategy> s) {
+	strategy = std::move(s);
+}
+
+std::vector<size_t> AddressBook::find(const std::string& q) const {
+	std::vector<size_t> ids;
+	if (!strategy) return ids;
+	for (size_t i = 0; i < contacts.size(); ++i)
+	{
+		if (strategy->matches(*contacts[i], q)) ids.push_back(i);
+	}
+	return ids;
 }
 
