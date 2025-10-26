@@ -125,11 +125,13 @@
   <ItemGroup>
     <ClCompile Include="AddressBook.cpp" />
     <ClCompile Include="Colleague.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Teacher.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddressBook.h" />
     <ClInclude Include="Colleague.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Student.h" />

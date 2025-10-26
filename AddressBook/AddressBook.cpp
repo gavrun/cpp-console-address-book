@@ -1,19 +1,36 @@
+#include "AddressBook.h"
+#include "Person.h"
+
 #include <iostream>
 
-#include "Student.h"
-#include "Teacher.h"
-#include "Colleague.h"
+void AddressBook::addPerson(std::unique_ptr<Person> person) {
+	contacts.push_back(std::move(person));
+}
 
-int main()
-{
-	std::cout << "Address Book - bootstrap OK\n" << std::endl;
+bool AddressBook::edit(size_t idx, std::unique_ptr<Person> p) {
+	if (idx >= contacts.size()) return false;
+	contacts[idx] = std::move(p);
+	return true;
+}
 
-	Student s("Al", "Tor", "1234", "Dance");
-	Teacher t("Ben", "Lock", "0974", "Math");
-	Colleague c("Ann", "Lee", "5551", "Biology");
+bool AddressBook::remove(size_t idx) {
+	if (idx >= contacts.size()) return false;
+	contacts.erase(contacts.begin() + idx);
+	return true;
+}
 
-	s.printInfo();
-	t.printInfo();
-	c.printInfo();
+void AddressBook::listPeople() const {
+	if (contacts.empty())
+	{
+		std::cout << "Address book is empty.\n";
+		return;
+	}
+	std::cout << "Listing all contacts:\n";
+	size_t idx = 0;
+	for (const auto& p : contacts)
+	{
+		std::cout << "#" << idx++ << ": ";
+		p->printInfo();
+	}
 }
 
