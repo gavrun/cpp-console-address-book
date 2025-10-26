@@ -1,0 +1,4 @@
+Student|Al|Tor|1234|Dance
+Teacher|Ben|Lock|0974|Math
+Colleague|Ann|Lee|5551|Biology
+Student|John|Wack|9999|Literature

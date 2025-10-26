@@ -125,9 +125,11 @@
   <ItemGroup>
     <ClCompile Include="AddressBook.cpp" />
     <ClCompile Include="Colleague.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="PersonFactory.cpp" />
     <ClCompile Include="SearchByName.cpp" />
     <ClCompile Include="SearchByPhone.cpp" />
     <ClCompile Include="SearchStrategy.cpp" />
@@ -137,8 +139,11 @@
   <ItemGroup>
     <ClInclude Include="AddressBook.h" />
     <ClInclude Include="Colleague.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="PersonFactory.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SearchByName.h" />
     <ClInclude Include="SearchByPhone.h" />
     <ClInclude Include="SearchStrategy.h" />
