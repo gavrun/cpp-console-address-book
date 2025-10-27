@@ -27,11 +27,20 @@ Text-based menu with interactive options (no TUI/GUI).
 
 ### Design
 
-* **Polymorphism** unified handling of all contact types via virtual methods.
-* **Strategy Pattern** modular search algorithms without changing the `AddressBook` core.
+* **OOP** design ensures readability and flexibility.
+* **Encapsulation** and **Abstraction** hides common and separates specialized behavior.
+* **Polymorphism** unified handling of all types via virtual methods.
+* **Separation of Concerns** between UI, Core, I/O, and Search.
+* **Open/Closed Principle** new contact types can be added easily.
+* **Interface Segregation** and **Dependency Inversion** UI layer decoupled from core logic.
+* **Strategy Pattern** modular search algorithms without changing the core logic.
 * **Factory Pattern** dynamic creation of objects from file data.
 * **RAII** and **Smart Pointers** unique_ptr ensures safe memory management.
 * **STL Containers** vector used for flexible and efficient contact storage.
+* **Persistence** layer abstracts file reading/writing logic.
+* **Consistent Data** uniform text representation makes saving/loading clearn and extendable.
+* **Defensive Programming** and **Input Validation**
+* **Testable Architecture** components can be tested independently
 
 ### Structure
 
@@ -40,15 +49,16 @@ AddressBook/
 ├── AddressBook.h/.cpp          # Core contact storage logic
 ├── FileManager.h/.cpp          # File input/output layer
 ├── Interface.h/.cpp            # Console UI controller
+├── InterfaceFormatter.h/.cpp
 ├── Person.h/.cpp               # Abstract base for contacts
-├── Student.h/.cpp              # Derived contact type: Student
+├── Student.h/.cpp              # Derived contact type
 ├── Teacher.h/.cpp		        
 ├── Colleague.h/.cpp	        
 ├── SearchStrategy.h/.cpp       # Search Strategy
 ├── SearchByName.h/.cpp         # Search implementation
 ├── SearchByPhone.h/.cpp        
 ├── PersonFactory.h/.cpp        # Factory for creating contacts
-|
+├── ...
 ├── contacts.txt                # Example data file
 └── main.cpp                    # Program entry point
 ```
@@ -69,5 +79,4 @@ cd cpp-console-address-book
 4. Build Solution (Debug)
 
 5. Run
-
 

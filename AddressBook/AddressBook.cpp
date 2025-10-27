@@ -1,6 +1,7 @@
 #include "AddressBook.h"
 #include "Person.h"
 #include "SearchStrategy.h"
+#include "InterfaceFormatter.h"
 
 #include <iostream>
 #include <vector>
@@ -31,8 +32,7 @@ void AddressBook::listPeople() const {
 	size_t idx = 0;
 	for (const auto& p : contacts)
 	{
-		std::cout << "#" << idx++ << ": ";
-		p->printInfo();
+		std::cout << "#" << idx++ << ": " << InterfaceFormatter::format(*p) << "\n";
 	}
 }
 

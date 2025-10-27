@@ -8,13 +8,9 @@ Teacher::Teacher(const std::string& fn, const std::string& ln, const std::string
 
 std::string Teacher::getRole() const { return "Teacher"; }
 
+const std::string& Teacher::getSubject() const { return subject; }
+
 std::string Teacher::serialize() const {
     return "Teacher|" + firstName + "|" + lastName + "|" + phone + "|" + subject;
-}
-
-void Teacher::printInfo() const {
-    std::cout << "Teacher - Name: " << firstName << " " << lastName
-        << ", Phone: " << phone
-        << ", Subject: " << subject << std::endl;
 }
 

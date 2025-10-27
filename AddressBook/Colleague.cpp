@@ -8,13 +8,9 @@ Colleague::Colleague(const std::string& fn, const std::string& ln, const std::st
 
 std::string Colleague::getRole() const { return "Colleague"; }
 
+const std::string& Colleague::getCompany() const { return company; }
+
 std::string Colleague::serialize() const {
     return "Colleague|" + firstName + "|" + lastName + "|" + phone + "|" + company;
-}
-
-void Colleague::printInfo() const {
-    std::cout << "Colleague - Name: " << firstName << " " << lastName
-        << ", Phone: " << phone
-        << ", Company: " << company << std::endl;
 }
 

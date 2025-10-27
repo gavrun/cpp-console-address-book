@@ -5,20 +5,21 @@
 **Date:** 2025-01-01  
 **Author:** Developer  
 
-## PlantUML Diagram 
+## PlantUML 
 
-Save the following script as `docs/data_model/address_book.puml` and generate PNG/SVG:
+Paste the following script to `https://www.plantuml.com/plantuml/uml/` and generate a Class Diagram and PNG/SVG:
+
+
+## Class Diagram (refactored)
 
 ```
 @startuml
-title Address Book – Layered UML Class Diagram (Uniform)
+title Address Book – Layered UML Class Diagram (Refactored)
 
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam linetype ortho
 skinparam packageStyle rectangle
-
-' Optional subtle colors for layers (keep uniform/clean)
 skinparam package {
   BackgroundColor<<Layer>> #F9F9F9
   BorderColor #999999
@@ -29,7 +30,6 @@ skinparam class {
 }
 
 package "Application" {
-  
   package "Presentation Layer (UI)" <<Layer>> {
     class Main {
       + main() : int
@@ -45,6 +45,13 @@ package "Application" {
       - editMenu() : void
       - removeMenu() : void
     }
+
+    class InterfaceFormatter {
+      + format(p : Person) : string
+      + format(s : Student) : string
+      + format(t : Teacher) : string
+      + format(c : Colleague) : string
+    }
   }
 
   package "Application (Logic) Layer" <<Layer>> {
@@ -52,7 +59,6 @@ package "Application" {
       - contacts : vector< unique_ptr<Person> >
       - strategy : unique_ptr<SearchStrategy> [0..1]
       + addPerson(p : unique_ptr<Person>) : void
-      + listPeople() : void
       + setStrategy(s : unique_ptr<SearchStrategy>) : void
       + find(q : string) : vector<size_t>
       + edit(index : size_t, p : unique_ptr<Person>) : bool
@@ -84,34 +90,34 @@ package "Application" {
       - lastName  : string
       - phone     : string
       + getRole() : string <<abstract>>
-      + serialize() : string <<abstract>>
-      + printInfo() : void <<abstract>>
       + getFirstName() : const string&
       + getLastName()  : const string&
       + getPhone()     : const string&
+      + serialize() : string <<abstract>>
     }
 
     class Student {
       - major : string
       + getRole() : string
+      + getMajor() : const string&
       + serialize() : string
-      + printInfo() : void
     }
 
     class Teacher {
       - subject : string
       + getRole() : string
+      + getSubject() : const string&
       + serialize() : string
-      + printInfo() : void
     }
 
     class Colleague {
       - company : string
       + getRole() : string
+      + getCompany() : const string&
       + serialize() : string
-      + printInfo() : void
     }
-
+    
+    ' Inheritance
     Person <|-- Student
     Person <|-- Teacher
     Person <|-- Colleague
@@ -129,26 +135,28 @@ package "Application" {
     }
   }
 
-  ' --- Cross-layer relationships (top-down, minimal) ---
+  ' --- Cross-layer relationships (dependencies / uses) ---
 
-  ' UI controls Application
-  Interface --> AddressBook : controls
-
-  ' UI selects concrete search strategies
+  Interface --> AddressBook : uses
   Interface ..> SearchByName : selects
   Interface ..> SearchByPhone : selects
-
-  ' Application uses strategy (polymorphic)
+  
+  ' Composition / aggregation
   AddressBook ..> SearchStrategy : uses (optional)
-
-  ' Composition: AddressBook owns Person entries
   AddressBook "1" *-- "*" Person : owns
 
-  ' Persistence constructs domain objects on load
-  FileManager ..> PersonFactory : uses (create on load)
-  FileManager ..> Person : reads/writes serialize()
+  FileManager ..> PersonFactory : uses
+  FileManager ..> Person : uses serialize (load/save)
 
-  ' Composition root (startup/shutdown wiring)
+  PersonFactory ..> Person : create
+
+  Interface ..> InterfaceFormatter : uses
+  
+  InterfaceFormatter ..> Person : formats
+  InterfaceFormatter ..> Student
+  InterfaceFormatter ..> Teacher
+  InterfaceFormatter ..> Colleague
+
   Main ..> FileManager : load/save
   Main ..> AddressBook : injects data
   Main ..> Interface : runs UI
@@ -156,14 +164,9 @@ package "Application" {
 
 legend left
   Packages denote architectural layers (<<Layer>>).
-  Allowed directions:
-    Presentation -> Application
-    Application  -> Domain
-    Presentation -> Persistence
-    Persistence  -> Domain
-  Domain has no upward dependencies.
+  Separation of Concerns between UI, Core, I/O, and Search.
+  Open/Closed Principle.
+  Extensible UI layer decoupled from core logic.
 endlegend
-
 @enduml
 ```
-

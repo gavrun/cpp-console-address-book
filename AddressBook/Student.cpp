@@ -8,13 +8,9 @@ Student::Student(const std::string& fn, const std::string& ln, const std::string
 
 std::string Student::getRole() const { return "Student"; }
 
+const std::string& Student::getMajor() const { return major; }
+
 std::string Student::serialize() const {
 	return "Student|" + firstName + "|" + lastName + "|" + phone + "|" + major;
-}
-
-void Student::printInfo() const {
-	std::cout << "Student - Name: " << firstName << " " << lastName
-		      << ", Phone: " << phone
-		      << ", Major: " << major << std::endl;
 }
 

@@ -10,6 +10,7 @@
 #include "Colleague.h"
 #include "SearchByName.h"
 #include "SearchByPhone.h"
+#include "InterfaceFormatter.h"
 
 Interface::Interface(AddressBook& addressBook) : book(addressBook) {}
 
@@ -19,7 +20,7 @@ void Interface::run() {
 
 	while (running)
 	{
-		std::cout << "\n=== Address Book Menu ===\n";
+		std::cout << "\n=== Menu ===\n";
 		std::cout << "[S] Add Student\n";
 		std::cout << "[T] Add Teacher\n";
 		std::cout << "[C] Add Colleague\n";
@@ -133,8 +134,7 @@ void Interface::findMenu() {
 	{
 		if (const Person* p = book.get(idx))
 		{
-			std::cout << "#" << idx << ": ";
-			p->printInfo();
+			std::cout << "#" << idx << ": " << InterfaceFormatter::format(*p) << "\n";
 		}
 	}
 }
@@ -227,5 +227,4 @@ void Interface::editMenu() {
 	if (book.edit(idx, std::move(p))) std::cout << "Edited.\n";
 	else std::cout << "Invalid index.\n";
  }
-
 
